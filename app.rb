@@ -12,6 +12,8 @@ get '/v1' do
   url = URI.parse params[:url]
 
   content_type :json
+  headers \
+    "Access-Control-Allow-Origin": "*"
 
   cache.fetch url do
     response = HTTParty.get url, format: :xml
