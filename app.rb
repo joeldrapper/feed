@@ -8,12 +8,11 @@ cache = Readthis::Cache.new(
   redis: { url: ENV.fetch('REDIS_URL') }
 )
 
-get '/v1' do
-  url = URI.parse params[:url]
-
+get '/' do
   content_type :json
-
   headers "Access-Control-Allow-Origin" => "*"
+
+  url = URI.parse request.query_string
 
   cache.fetch url do
     response = HTTParty.get url, format: :xml
